@@ -40,19 +40,18 @@ public class PromisesVerticleTest extends TestVerticle {
 		final PromiseVertx vertx = new PromiseVertx(this.vertx);
 		final PromiseEventBus bus = vertx.promiseBus();
 		final PromiseContainer container = new PromiseContainer(this.container);
-		container
-			.deployVerticle(StubVerticle.class.getName())
-			.bind(from -> {
-                assertTrue(from.succeeded());
-                return bus.send("a", Q + "a");
-			}).compose(from ->
-                bus.send("b", Q + "b")
-            , (left, right) ->
-                bus.send("c", left.body() + " " + right.body())
-            ).then(cReply -> {
-                assertEquals("hello world", cReply.body());
-                testComplete();
-		    });
+        container.deployVerticle(StubVerticle.class.getName())
+        .bind(from -> {
+            assertTrue(from.succeeded());
+            return bus.send("a", Q + "a");
+        }).compose(from ->
+            bus.send("b", Q + "b")
+        , (left, right) ->
+            bus.send("c", left.body() + " " + right.body())
+        ).then(cReply -> {
+            assertEquals("hello world", cReply.body());
+            testComplete();
+        });
 	}
 
     @Test

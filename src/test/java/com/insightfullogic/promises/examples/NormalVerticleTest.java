@@ -37,7 +37,7 @@ public class NormalVerticleTest extends TestVerticle {
 	// Collects messages from 'a' and 'b', send them to 'c' and check response
 	@Test
 	public void nestingOfDoom() {
-		container.deployVerticle(StubVerticle.class.getName(), event -> {
+        container.deployVerticle(StubVerticle.class.getName(), event -> {
             assertTrue(event.succeeded());
             final EventBus eb = vertx.eventBus();
             eb.send("a", Q, (Message<String> aReply) -> {
@@ -51,7 +51,7 @@ public class NormalVerticleTest extends TestVerticle {
                     });
                 });
             });
-		});
+        });
 	}
 j
 	@Test
